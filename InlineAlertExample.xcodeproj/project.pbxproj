@@ -83,15 +83,13 @@
 		6C19B54921AEAF2C00AD06A3 /* InlineAlertExample */ = {
 			isa = PBXGroup;
 			children = (
+				6C304B8821AEFBEC00F3F99A /* inline alert */,
 				6C19B54A21AEAF2C00AD06A3 /* AppDelegate.swift */,
 				6C19B54C21AEAF2C00AD06A3 /* ViewController.swift */,
 				6C19B54E21AEAF2C00AD06A3 /* Main.storyboard */,
 				6C19B55121AEAF2D00AD06A3 /* Assets.xcassets */,
 				6C19B55321AEAF2D00AD06A3 /* LaunchScreen.storyboard */,
 				6C19B55621AEAF2D00AD06A3 /* Info.plist */,
-				6C19B56A21AEAF3C00AD06A3 /* InlineAlert.swift */,
-				6C19B56C21AEAFBC00AD06A3 /* UIViewExtension.swift */,
-				6C3D40D521AEB4CB001C739F /* InlineAlertView.swift */,
 			);
 			path = InlineAlertExample;
 			sourceTree = "<group>";
@@ -103,6 +101,16 @@
 				6C19B56121AEAF2D00AD06A3 /* Info.plist */,
 			);
 			path = InlineAlertExampleTests;
+			sourceTree = "<group>";
+		};
+		6C304B8821AEFBEC00F3F99A /* inline alert */ = {
+			isa = PBXGroup;
+			children = (
+				6C19B56A21AEAF3C00AD06A3 /* InlineAlert.swift */,
+				6C19B56C21AEAFBC00AD06A3 /* UIViewExtension.swift */,
+				6C3D40D521AEB4CB001C739F /* InlineAlertView.swift */,
+			);
+			path = "inline alert";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

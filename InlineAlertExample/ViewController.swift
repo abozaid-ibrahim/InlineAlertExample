@@ -19,13 +19,11 @@ class ViewController: UIViewController {
             .addVerticalSeperator()
             .addAction(title: "Submit", action: {
                 print("action is")
-            }).addPadding()
+            })
+            .addPadding()
             .appendText(text: NSAttributedString(string: "asdfa")).trimBottomSpace()
         
-     
         view.addSubview(alert)
-        
-        
         
     }
     override func viewDidAppear(_ animated: Bool) {
