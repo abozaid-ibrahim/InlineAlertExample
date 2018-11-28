@@ -100,20 +100,17 @@ private extension VFInlineAlert{
     func setBodyView(){
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.alignment = .center
+        stackView.alignment = .top
         stackView.spacing = Style.bodyPadding
-        stackView.frame = CGRect(origin: CGPoint(x: Style.leadingViewWidth + Style.bodyPadding, y: 0),
-                                 size:  CGSize(
-                                    width: view.bounds.width - (Style.leadingViewWidth + (2*Style.bodyPadding)),
-                                    height: view.bounds.height - (2*Style.bodyPadding)))
-        
-        
-    
-        
-        view.addSubview(stackView)
-//        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-       
+        let stFrame = CGRect(origin: CGPoint(x: Style.leadingViewWidth + Style.bodyPadding, y: 0),
+                                     size:  CGSize(
+                                        width: view.bounds.width - (Style.leadingViewWidth + (2*Style.bodyPadding)),
+                                        height: view.bounds.height - (2*Style.bodyPadding)))
+        let stackContainer = UIView(frame: stFrame)
+        stackContainer.addSubview(stackView)
+        stackView.frame = stackContainer.bounds
+        view.addSubview(stackContainer)
+
 
     }
     func initView(icon:UIImage){
