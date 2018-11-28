@@ -8,11 +8,12 @@
 
 
 import UIKit
-import Foundation
-import UIKit
 
 
 final class VFInlineAlert:UIView,InlineAlert{
+    var style:Style{
+        return Style()
+    }
     init(frame: CGRect, icon: UIImage  = #imageLiteral(resourceName: "infoCircle")) {
         super.init(frame: frame)
         initView(icon: icon)
@@ -41,15 +42,12 @@ final class VFInlineAlert:UIView,InlineAlert{
         label.lineBreakMode = .byWordWrapping
         label.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        label.widthAnchor.constraint(equalToConstant: stackView.bounds.width - Style.bodyPadding ).isActive = true
+        //        label.widthAnchor.constraint(equalToConstant: stackView.bounds.width - style.bodyPadding ).isActive = true
         stackView.addArrangedSubview(label)
         return self
     }
     
     func trimBottomSpace() -> Self {
-        let label = UILabel()
-        label.heightAnchor.constraint(greaterThanOrEqualToConstant: 0).isActive = true
-        stackView.addArrangedSubview(label)
         return self
     }
     
@@ -57,8 +55,8 @@ final class VFInlineAlert:UIView,InlineAlert{
         let sep = UIView()
         sep.translatesAutoresizingMaskIntoConstraints = false
         
-        sep.backgroundColor = Style.seperatorColor
-        sep.widthAnchor.constraint(equalToConstant: stackView.bounds.width - Style.bodyPadding ).isActive = true
+        sep.backgroundColor = style.seperatorColor
+        sep.widthAnchor.constraint(equalToConstant: stackView.bounds.width - style.bodyPadding ).isActive = true
         sep.heightAnchor.constraint(equalToConstant: 1 ).isActive = true
         
         stackView.addArrangedSubview(sep)
@@ -68,7 +66,7 @@ final class VFInlineAlert:UIView,InlineAlert{
         let padding = UIView()
         padding.translatesAutoresizingMaskIntoConstraints = false
         padding.backgroundColor = UIColor.clear
-        padding.heightAnchor.constraint(equalToConstant: Style.bodyPadding ).isActive = true
+        padding.heightAnchor.constraint(equalToConstant: style.bodyPadding ).isActive = true
         stackView.addArrangedSubview(padding)
         return self
     }
@@ -76,10 +74,10 @@ final class VFInlineAlert:UIView,InlineAlert{
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        button.widthAnchor.constraint(equalToConstant: stackView.bounds.width - Style.bodyPadding ).isActive = true
+        button.widthAnchor.constraint(equalToConstant: stackView.bounds.width - style.bodyPadding ).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40 ).isActive = true
         button.setTitle(title, for: .normal)
-        button.backgroundColor = Style.buttonBG
+        button.backgroundColor = style.buttonBG
         button.actionHandle(control: .touchUpInside,
                             forAction:{() -> Void in
                                 action()
@@ -93,20 +91,21 @@ final class VFInlineAlert:UIView,InlineAlert{
     
 }
 extension VFInlineAlert{
-    struct Style{
-        static let seperatorColor = UIColor.gray
-        static let buttonBG = UIColor.gray
-        static let primaryBGColor = UIColor.purple
-        static let leadingViewWidth:CGFloat = 40
-        static let bodyPadding:CGFloat = 10
+     final class Style{
+         var seperatorColor = UIColor.gray
+         var buttonBG = UIColor.gray
+         var primaryBGColor = UIColor.purple
+         var leadingViewWidth:CGFloat = 40
+         var bodyPadding:CGFloat = 10
+         var bodyBG = UIColor.white
     }
 }
 private extension VFInlineAlert{
     func setLeadingView(icon:UIImage){
-        let leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: Style.leadingViewWidth, height: self.bounds.height)))
-        leftView.backgroundColor = Style.primaryBGColor
-        let iconDim =  Style.leadingViewWidth -  Style.bodyPadding
-        let iconView = UIImageView(frame: CGRect(x: Style.bodyPadding , y: Style.bodyPadding, width: iconDim, height: iconDim))
+        let leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: style.leadingViewWidth, height: self.bounds.height)))
+        leftView.backgroundColor = style.primaryBGColor
+        let iconDim =  style.leadingViewWidth -  style.bodyPadding
+        let iconView = UIImageView(frame: CGRect(x: style.bodyPadding*0.5 , y: style.bodyPadding, width: iconDim, height: iconDim))
         iconView.image = icon
         leftView.addSubview(iconView)
         self.addSubview(leftView)
@@ -114,15 +113,16 @@ private extension VFInlineAlert{
     
     func setBodyView(){
         stackView.axis = .vertical
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         stackView.alignment = .top
-        stackView.spacing = Style.bodyPadding
-        let stFrame = CGRect(origin: CGPoint(x: Style.leadingViewWidth + Style.bodyPadding, y: 0),
+        stackView.spacing = style.bodyPadding
+        let stFrame = CGRect(origin: CGPoint(x: style.leadingViewWidth + style.bodyPadding, y: style.bodyPadding),
                              size:  CGSize(
-                                width: self.bounds.width - (Style.leadingViewWidth + (2*Style.bodyPadding)),
-                                height: self.bounds.height - (2*Style.bodyPadding)))
+                                width: self.bounds.width - (style.leadingViewWidth + (2*style.bodyPadding)),
+                                height: self.bounds.height - (2*style.bodyPadding)))
         let stackContainer = UIView(frame: stFrame)
         stackContainer.addSubview(stackView)
+        stackContainer.backgroundColor = style.bodyBG
         stackView.frame = stackContainer.bounds
         self.addSubview(stackContainer)
         
@@ -131,7 +131,7 @@ private extension VFInlineAlert{
     func initView(icon:UIImage){
         self.setLeadingView(icon: icon)
         self.setBodyView()
-        self.setCorners(borderColor:Style.primaryBGColor)
+        self.setCorners(borderColor:style.primaryBGColor)
     }
     
 }

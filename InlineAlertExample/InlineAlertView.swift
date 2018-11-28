@@ -15,5 +15,6 @@ protocol InlineAlert {
     func appendText(text:NSAttributedString)->Self
     func addVerticalSeperator()->Self
     func addAction(title:String, action:@escaping ButtonAction)->Self
+    func addPadding() -> Self 
     func trimBottomSpace() -> Self
 }
