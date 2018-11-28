@@ -19,13 +19,11 @@ class ViewController: UIViewController {
                             .addVerticalSeperator()
                             .addAction(title: "Submit", action: {
                                 print("action is")
-                            })
+                            }).trimBottomSpace()
 
 
 
-                        alert.view.backgroundColor = .green
-                        alert.view.layoutSubviews()
-                        view.addSubview(alert.view)
+                        view.addSubview(alert)
         
 //        test()
         

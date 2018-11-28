@@ -12,15 +12,22 @@ import Foundation
 import UIKit
 
 
-final class VFInlineAlert:InlineAlert{
-    let view  = UIView()
-    private let stackView = UIStackView()
-    
-    
-    init(frame:CGRect, icon: UIImage = #imageLiteral(resourceName: "infoCircle")) {
-        view.frame = frame
+final class VFInlineAlert:UIView,InlineAlert{
+    init(frame: CGRect, icon: UIImage  = #imageLiteral(resourceName: "infoCircle")) {
+        super.init(frame: frame)
         initView(icon: icon)
     }
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initView(icon: #imageLiteral(resourceName: "infoCircle"))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    private let stackView = UIStackView()
     
     func append(view: UIView) -> Self {
         stackView.addSubview(view)
@@ -33,7 +40,15 @@ final class VFInlineAlert:InlineAlert{
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         label.widthAnchor.constraint(equalToConstant: stackView.bounds.width - Style.bodyPadding ).isActive = true
+        stackView.addArrangedSubview(label)
+        return self
+    }
+    
+    func trimBottomSpace() -> Self {
+        let label = UILabel()
+        label.heightAnchor.constraint(greaterThanOrEqualToConstant: 0).isActive = true
         stackView.addArrangedSubview(label)
         return self
     }
@@ -46,7 +61,7 @@ final class VFInlineAlert:InlineAlert{
         sep.widthAnchor.constraint(equalToConstant: stackView.bounds.width - Style.bodyPadding ).isActive = true
         sep.heightAnchor.constraint(equalToConstant: 1 ).isActive = true
         
-       stackView.addArrangedSubview(sep)
+        stackView.addArrangedSubview(sep)
         return self
     }
     func addPadding() -> Self {
@@ -88,13 +103,13 @@ extension VFInlineAlert{
 }
 private extension VFInlineAlert{
     func setLeadingView(icon:UIImage){
-        let leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: Style.leadingViewWidth, height: view.bounds.height)))
+        let leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: Style.leadingViewWidth, height: self.bounds.height)))
         leftView.backgroundColor = Style.primaryBGColor
         let iconDim =  Style.leadingViewWidth -  Style.bodyPadding
         let iconView = UIImageView(frame: CGRect(x: Style.bodyPadding , y: Style.bodyPadding, width: iconDim, height: iconDim))
         iconView.image = icon
         leftView.addSubview(iconView)
-        view.addSubview(leftView)
+        self.addSubview(leftView)
     }
     
     func setBodyView(){
@@ -103,20 +118,20 @@ private extension VFInlineAlert{
         stackView.alignment = .top
         stackView.spacing = Style.bodyPadding
         let stFrame = CGRect(origin: CGPoint(x: Style.leadingViewWidth + Style.bodyPadding, y: 0),
-                                     size:  CGSize(
-                                        width: view.bounds.width - (Style.leadingViewWidth + (2*Style.bodyPadding)),
-                                        height: view.bounds.height - (2*Style.bodyPadding)))
+                             size:  CGSize(
+                                width: self.bounds.width - (Style.leadingViewWidth + (2*Style.bodyPadding)),
+                                height: self.bounds.height - (2*Style.bodyPadding)))
         let stackContainer = UIView(frame: stFrame)
         stackContainer.addSubview(stackView)
         stackView.frame = stackContainer.bounds
-        view.addSubview(stackContainer)
-
-
+        self.addSubview(stackContainer)
+        
+        
     }
     func initView(icon:UIImage){
         self.setLeadingView(icon: icon)
         self.setBodyView()
-        view.setCorners(borderColor:Style.primaryBGColor)
+        self.setCorners(borderColor:Style.primaryBGColor)
     }
     
 }
