@@ -8,14 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		6C19B54B21AEAF2C00AD06A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C19B54A21AEAF2C00AD06A3 /* AppDelegate.swift */; };
-		6C19B54D21AEAF2C00AD06A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C19B54C21AEAF2C00AD06A3 /* ViewController.swift */; };
 		6C19B55021AEAF2C00AD06A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C19B54E21AEAF2C00AD06A3 /* Main.storyboard */; };
 		6C19B55221AEAF2D00AD06A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C19B55121AEAF2D00AD06A3 /* Assets.xcassets */; };
 		6C19B55521AEAF2D00AD06A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C19B55321AEAF2D00AD06A3 /* LaunchScreen.storyboard */; };
-		6C19B56021AEAF2D00AD06A3 /* InlineAlertExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C19B55F21AEAF2D00AD06A3 /* InlineAlertExampleTests.swift */; };
-		6C19B56B21AEAF3C00AD06A3 /* InlineAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C19B56A21AEAF3C00AD06A3 /* InlineAlert.swift */; };
-		6C19B56D21AEAFBC00AD06A3 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C19B56C21AEAFBC00AD06A3 /* UIViewExtension.swift */; };
-		6C3D40D621AEB4CB001C739F /* InlineAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3D40D521AEB4CB001C739F /* InlineAlertView.swift */; };
+		6C19B56021AEAF2D00AD06A3 /* InlineAlertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C19B55F21AEAF2D00AD06A3 /* InlineAlertTests.swift */; };
+		6C396EDB21AFFACB006D1AF7 /* InlineAlertUIStylingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C396EDA21AFFACB006D1AF7 /* InlineAlertUIStylingTest.swift */; };
+		6C6ED79D21B534AB00BEBDC6 /* VFAlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED79421B534AB00BEBDC6 /* VFAlertExtension.swift */; };
+		6C6ED79F21B534AB00BEBDC6 /* VFServiceCategoriesTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED79621B534AB00BEBDC6 /* VFServiceCategoriesTableController.swift */; };
+		6C6ED7A021B534AB00BEBDC6 /* InlineAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED79721B534AB00BEBDC6 /* InlineAlert.swift */; };
+		6C6ED7A121B534AB00BEBDC6 /* VFServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED79821B534AB00BEBDC6 /* VFServiceCategory.swift */; };
+		6C6ED7A221B534AB00BEBDC6 /* VFServiceCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED79921B534AB00BEBDC6 /* VFServiceCategoryViewController.swift */; };
+		6C6ED7A721B540DC00BEBDC6 /* UIAlertPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED7A621B540DC00BEBDC6 /* UIAlertPager.swift */; };
+		6C6ED7A921B5420B00BEBDC6 /* AlertPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED7A821B5420B00BEBDC6 /* AlertPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,17 +35,21 @@
 /* Begin PBXFileReference section */
 		6C19B54721AEAF2C00AD06A3 /* InlineAlertExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InlineAlertExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C19B54A21AEAF2C00AD06A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6C19B54C21AEAF2C00AD06A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6C19B54F21AEAF2C00AD06A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6C19B55121AEAF2D00AD06A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C19B55421AEAF2D00AD06A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C19B55621AEAF2D00AD06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C19B55B21AEAF2D00AD06A3 /* InlineAlertExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InlineAlertExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C19B55F21AEAF2D00AD06A3 /* InlineAlertExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineAlertExampleTests.swift; sourceTree = "<group>"; };
+		6C19B55F21AEAF2D00AD06A3 /* InlineAlertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineAlertTests.swift; sourceTree = "<group>"; };
 		6C19B56121AEAF2D00AD06A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6C19B56A21AEAF3C00AD06A3 /* InlineAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineAlert.swift; sourceTree = "<group>"; };
-		6C19B56C21AEAFBC00AD06A3 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		6C3D40D521AEB4CB001C739F /* InlineAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineAlertView.swift; sourceTree = "<group>"; };
+		6C396EDA21AFFACB006D1AF7 /* InlineAlertUIStylingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineAlertUIStylingTest.swift; sourceTree = "<group>"; };
+		6C6ED79421B534AB00BEBDC6 /* VFAlertExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VFAlertExtension.swift; sourceTree = "<group>"; };
+		6C6ED79621B534AB00BEBDC6 /* VFServiceCategoriesTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VFServiceCategoriesTableController.swift; sourceTree = "<group>"; };
+		6C6ED79721B534AB00BEBDC6 /* InlineAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineAlert.swift; sourceTree = "<group>"; };
+		6C6ED79821B534AB00BEBDC6 /* VFServiceCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VFServiceCategory.swift; sourceTree = "<group>"; };
+		6C6ED79921B534AB00BEBDC6 /* VFServiceCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VFServiceCategoryViewController.swift; sourceTree = "<group>"; };
+		6C6ED7A621B540DC00BEBDC6 /* UIAlertPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertPager.swift; sourceTree = "<group>"; };
+		6C6ED7A821B5420B00BEBDC6 /* AlertPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +91,8 @@
 		6C19B54921AEAF2C00AD06A3 /* InlineAlertExample */ = {
 			isa = PBXGroup;
 			children = (
-				6C304B8821AEFBEC00F3F99A /* inline alert */,
+				6C6ED79221B5345D00BEBDC6 /* component */,
 				6C19B54A21AEAF2C00AD06A3 /* AppDelegate.swift */,
-				6C19B54C21AEAF2C00AD06A3 /* ViewController.swift */,
 				6C19B54E21AEAF2C00AD06A3 /* Main.storyboard */,
 				6C19B55121AEAF2D00AD06A3 /* Assets.xcassets */,
 				6C19B55321AEAF2D00AD06A3 /* LaunchScreen.storyboard */,
@@ -97,20 +104,33 @@
 		6C19B55E21AEAF2D00AD06A3 /* InlineAlertExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				6C19B55F21AEAF2D00AD06A3 /* InlineAlertExampleTests.swift */,
+				6C19B55F21AEAF2D00AD06A3 /* InlineAlertTests.swift */,
 				6C19B56121AEAF2D00AD06A3 /* Info.plist */,
+				6C396EDA21AFFACB006D1AF7 /* InlineAlertUIStylingTest.swift */,
 			);
 			path = InlineAlertExampleTests;
 			sourceTree = "<group>";
 		};
-		6C304B8821AEFBEC00F3F99A /* inline alert */ = {
+		6C6ED79221B5345D00BEBDC6 /* component */ = {
 			isa = PBXGroup;
 			children = (
-				6C19B56A21AEAF3C00AD06A3 /* InlineAlert.swift */,
-				6C19B56C21AEAFBC00AD06A3 /* UIViewExtension.swift */,
-				6C3D40D521AEB4CB001C739F /* InlineAlertView.swift */,
+				6C6ED79321B5348200BEBDC6 /* view */,
 			);
-			path = "inline alert";
+			path = component;
+			sourceTree = "<group>";
+		};
+		6C6ED79321B5348200BEBDC6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				6C6ED7A621B540DC00BEBDC6 /* UIAlertPager.swift */,
+				6C6ED7A821B5420B00BEBDC6 /* AlertPageViewController.swift */,
+				6C6ED79921B534AB00BEBDC6 /* VFServiceCategoryViewController.swift */,
+				6C6ED79421B534AB00BEBDC6 /* VFAlertExtension.swift */,
+				6C6ED79721B534AB00BEBDC6 /* InlineAlert.swift */,
+				6C6ED79621B534AB00BEBDC6 /* VFServiceCategoriesTableController.swift */,
+				6C6ED79821B534AB00BEBDC6 /* VFServiceCategory.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,11 +234,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C19B56B21AEAF3C00AD06A3 /* InlineAlert.swift in Sources */,
-				6C19B54D21AEAF2C00AD06A3 /* ViewController.swift in Sources */,
-				6C3D40D621AEB4CB001C739F /* InlineAlertView.swift in Sources */,
-				6C19B56D21AEAFBC00AD06A3 /* UIViewExtension.swift in Sources */,
+				6C6ED79F21B534AB00BEBDC6 /* VFServiceCategoriesTableController.swift in Sources */,
+				6C6ED7A121B534AB00BEBDC6 /* VFServiceCategory.swift in Sources */,
+				6C6ED7A721B540DC00BEBDC6 /* UIAlertPager.swift in Sources */,
+				6C6ED7A221B534AB00BEBDC6 /* VFServiceCategoryViewController.swift in Sources */,
+				6C6ED79D21B534AB00BEBDC6 /* VFAlertExtension.swift in Sources */,
+				6C6ED7A021B534AB00BEBDC6 /* InlineAlert.swift in Sources */,
 				6C19B54B21AEAF2C00AD06A3 /* AppDelegate.swift in Sources */,
+				6C6ED7A921B5420B00BEBDC6 /* AlertPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +249,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C19B56021AEAF2D00AD06A3 /* InlineAlertExampleTests.swift in Sources */,
+				6C396EDB21AFFACB006D1AF7 /* InlineAlertUIStylingTest.swift in Sources */,
+				6C19B56021AEAF2D00AD06A3 /* InlineAlertTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +407,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 475YN7ANSF;
 				INFOPLIST_FILE = InlineAlertExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -400,7 +426,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 475YN7ANSF;
 				INFOPLIST_FILE = InlineAlertExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
