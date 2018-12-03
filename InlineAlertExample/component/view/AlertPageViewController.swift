@@ -29,10 +29,10 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
+        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController!.dataSource = self
 
-        let startingViewController: InstructionView = viewControllerAtIndex(index: 0)!
+        let startingViewController: SingleAlertPageController = viewControllerAtIndex(index: 0)!
         let viewControllers = [startingViewController]
         pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: nil)
         pageViewController!.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
@@ -56,7 +56,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     }
 
     func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as! InstructionView).pageIndex
+        var index = (viewController as! SingleAlertPageController).pageIndex
 
         if (index == 0) || (index == NSNotFound) {
             return nil
@@ -68,7 +68,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     }
 
     func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as! InstructionView).pageIndex
+        var index = (viewController as! SingleAlertPageController).pageIndex
 
         if index == NSNotFound {
             return nil
@@ -91,13 +91,13 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         return 0
     }
     
-    func viewControllerAtIndex(index: Int) -> InstructionView? {
+    func viewControllerAtIndex(index: Int) -> SingleAlertPageController? {
         if alerts.count == 0 || index >= alerts.count {
             return nil
         }
         
         // Create a new view controller and pass suitable data.
-        let pageContentViewController = InstructionView(pageIndex: index,alert: alerts[index])
+        let pageContentViewController = SingleAlertPageController(pageIndex: index,alert: alerts[index])
         
         pageContentViewController.pageIndex = index
         currentIndex = index
@@ -108,20 +108,20 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
 
 }
 
-class InstructionView: UIViewController {
+class SingleAlertPageController: UIViewController {
     var pageIndex: Int 
-    var alert: InlineAlertView
+    private var alert: InlineAlertView
     init(pageIndex:Int,alert: InlineAlertView) {
         self.alert = alert
         self.pageIndex = pageIndex
         super.init(nibName: nil, bundle: nil)
+         self.view = UIView()
+        view.addSubview(alert.view)
     }
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        view = alert.view
-    }
+   
 }
