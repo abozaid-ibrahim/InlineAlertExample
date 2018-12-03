@@ -45,7 +45,7 @@ class VFServiceCategoryViewController: UIViewController {
                 print("action is")
             })
         
-        let pagerFrame = CGRect(origin: CGPoint(x: 0, y: 40), size: defaultSize)
+        let pagerFrame = CGRect(origin: CGPoint(x: 10, y: 40), size: defaultSize)
         let alertPager = AlertPagerView(frame: pagerFrame, alerts: [alert, alert2,alert3])
 
         view.addSubview(alertPager)
