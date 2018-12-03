@@ -16,7 +16,7 @@ class AlertPagerView: UIView, Sizable {
     var alerts: [InlineAlertView]!
     func sizeChangedTo(newSize _: CGSize) {}
     
-    var alertsPager: AlertPageViewController!
+    var pageController: AlertPageViewController!
     private override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -28,7 +28,6 @@ class AlertPagerView: UIView, Sizable {
     convenience init(frame: CGRect, alerts: [InlineAlertView]) {
         self.init(frame: frame)
         self.alerts = alerts
-        //        self.alerts.map{$0.view.frame = self.bounds}
         setPresentationLogic()
     }
     
@@ -40,12 +39,11 @@ class AlertPagerView: UIView, Sizable {
             alert.view.frame = bounds
         } else {
             // TODO: insert alerts into pager controlller
-            let _ = alerts.map{$0.view.frame = bounds}
-            alertsPager = AlertPageViewController(alerts: alerts)
-            inputViewController?.addChildViewController(alertsPager)
-            addSubview(alertsPager.view)
-            alertsPager.view.frame = bounds
-            
+            let _ = alerts.map{$0.view.frame = self.bounds}
+            pageController = AlertPageViewController(alerts: alerts)
+            inputViewController?.addChildViewController(pageController)
+            addSubview(pageController.view)
+            pageController.view.frame = self.bounds
         }
     }
 }
