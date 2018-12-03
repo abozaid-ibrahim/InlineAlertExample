@@ -9,15 +9,14 @@
 import UIKit
 
 class AlertPageViewController: UIViewController, UIPageViewControllerDataSource {
-    var pageViewController: UIPageViewController?
-    var currentIndex: Int = 0 {
+    private var pageViewController: UIPageViewController?
+    private var currentIndex: Int = 0 {
         didSet{
             self.pageControl.currentPage = currentIndex
-            
         }
     }
-    var alerts: [InlineAlertView]!
-    var pageControl  = UIPageControl()
+    private var alerts: [InlineAlertView]!
+    private var pageControl  = UIPageControl()
     init(alerts: [InlineAlertView]){
         super.init(nibName: nil, bundle: nil)
         self.alerts = alerts
@@ -30,17 +29,14 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController!.dataSource = self
         let startingViewController: SingleAlertPageController = viewControllerAtIndex(index: currentIndex)!
         let viewControllers = [startingViewController]
         pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: nil)
-        //        pageViewController!.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         addChildViewController(pageViewController!)
         view.addSubview(pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
-        
         self.addDots()
     }
     private func addDots(){
@@ -51,6 +47,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         self.pageControl.tintColor = UIColor.black
         self.pageControl.pageIndicatorTintColor = UIColor.red
         self.pageControl.currentPageIndicatorTintColor = UIColor.blue
+        pageControl.currentPage = currentIndex
         self.view.addSubview(pageControl)
     }
     override func didReceiveMemoryWarning() {
@@ -63,9 +60,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         if (index == 0) || (index == NSNotFound) {
             return nil
         }
-        
         index -= 1
-        
         return viewControllerAtIndex(index: index)
     }
     

@@ -37,11 +37,15 @@ class AlertPagerView: UIView, Sizable {
             addSubview(alert.view)
             alert.view.frame = bounds
         } else {
-            let _ = alerts.map{$0.view.frame = self.bounds}
+            //   let _ = alerts.map{$0.view.frame = CGRect(origin: CGPoint(x:($0.view.bounds.width - newSize.width)/2  , y: ($0.view.bounds.height - newSize.height)/2), size: newSize) }
+            let newSize = self.bounds.size
+            let newOrigin = self.center
+            let _ = alerts.map{$0.view.frame = CGRect(origin: .zero, size: newSize) }
+            let _ = alerts.map{$0.view.center = newOrigin }
             pageController = AlertPageViewController(alerts: alerts)
+            pageController.view.frame = self.bounds
             inputViewController?.addChildViewController(pageController)
             addSubview(pageController.view)
-            pageController.view.frame = self.bounds
         }
     }
 }
