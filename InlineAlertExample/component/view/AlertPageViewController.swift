@@ -14,30 +14,30 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         didSet{
             print("didset\(currentIndex)")
             self.pageControl.currentPage = currentIndex
-
+            
         }
     }
     var alerts: [InlineAlertView]!
-     var pageControl  = UIPageControl()
+    var pageControl  = UIPageControl()
     init(alerts: [InlineAlertView]){
         super.init(nibName: nil, bundle: nil)
         self.alerts = alerts
     }
-   
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController!.dataSource = self
         let startingViewController: SingleAlertPageController = viewControllerAtIndex(index: 0)!
         let viewControllers = [startingViewController]
         pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: nil)
-//        pageViewController!.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        //        pageViewController!.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         addChildViewController(pageViewController!)
         view.addSubview(pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
@@ -57,41 +57,41 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! SingleAlertPageController).pageIndex
-print("index>>viewControllerBefore \(index)")
+        print("index>>viewControllerBefore \(index)")
         currentIndex = index
         if (index == 0) || (index == NSNotFound) {
             return nil
         }
-
+        
         index -= 1
-
+        
         return viewControllerAtIndex(index: index)
     }
-
+    
     func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! SingleAlertPageController).pageIndex
         print("index>>viewControllerAfter \(index)")
-currentIndex = index
+        currentIndex = index
         if index == NSNotFound {
             return nil
         }
-
+        
         index += 1
-
+        
         if index == alerts.count {
             return nil
         }
-
+        
         return viewControllerAtIndex(index: index)
     }
-
+    
     func presentationCountForPageViewController(pageViewController _: UIPageViewController) -> Int {
         return alerts.count
     }
-
+    
     func presentationIndexForPageViewController(pageViewController _: UIPageViewController) -> Int {
         return 0
     }
@@ -105,12 +105,12 @@ currentIndex = index
         let pageContentViewController = SingleAlertPageController(pageIndex: index,alert: alerts[index])
         
         pageContentViewController.pageIndex = index
-//        currentIndex = index
+        //        currentIndex = index
         
         return pageContentViewController
     }
     
-
+    
 }
 
 class SingleAlertPageController: UIViewController {
@@ -120,13 +120,13 @@ class SingleAlertPageController: UIViewController {
         self.alert = alert
         self.pageIndex = pageIndex
         super.init(nibName: nil, bundle: nil)
-         self.view = UIView()
+        self.view = UIView(frame: alert.view.bounds)
         view.addSubview(alert.view)
     }
-
+    
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-   
+    
+    
 }

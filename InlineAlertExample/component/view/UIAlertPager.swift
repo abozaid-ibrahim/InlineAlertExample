@@ -33,12 +33,10 @@ class AlertPagerView: UIView, Sizable {
     
     private func setPresentationLogic() {
         if alerts.count <= 1 {
-            // TODO: TEST
             guard let alert = alerts.first else { return }
             addSubview(alert.view)
             alert.view.frame = bounds
         } else {
-            // TODO: insert alerts into pager controlller
             let _ = alerts.map{$0.view.frame = self.bounds}
             pageController = AlertPageViewController(alerts: alerts)
             inputViewController?.addChildViewController(pageController)
