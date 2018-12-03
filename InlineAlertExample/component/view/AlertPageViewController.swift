@@ -12,7 +12,6 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     var pageViewController: UIPageViewController?
     var currentIndex: Int = 0 {
         didSet{
-            print("didset\(currentIndex)")
             self.pageControl.currentPage = currentIndex
             
         }
@@ -34,7 +33,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController!.dataSource = self
-        let startingViewController: SingleAlertPageController = viewControllerAtIndex(index: 0)!
+        let startingViewController: SingleAlertPageController = viewControllerAtIndex(index: currentIndex)!
         let viewControllers = [startingViewController]
         pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: nil)
         //        pageViewController!.view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
@@ -60,7 +59,6 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     
     func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! SingleAlertPageController).pageIndex
-        print("index>>viewControllerBefore \(index)")
         currentIndex = index
         if (index == 0) || (index == NSNotFound) {
             return nil
@@ -73,7 +71,6 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
     
     func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! SingleAlertPageController).pageIndex
-        print("index>>viewControllerAfter \(index)")
         currentIndex = index
         if index == NSNotFound {
             return nil

@@ -1,5 +1,5 @@
 //
-//  UIAlertPager.swift
+//  AlertPagerView.swift
 //  InlineAlertExample
 //
 //  Created by Abuzeid Ibrahim on 12/3/18.
@@ -16,7 +16,7 @@ class AlertPagerView: UIView, Sizable {
     var alerts: [InlineAlertView]!
     func sizeChangedTo(newSize _: CGSize) {}
     
-    var pageController: AlertPageViewController!
+    private var pageController: AlertPageViewController!
     private override init(frame: CGRect) {
         super.init(frame: frame)
     }

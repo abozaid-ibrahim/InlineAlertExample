@@ -7,19 +7,6 @@
 //
 
 import UIKit
-
-typealias ButtonAction = (() -> Void)
-protocol InlineAlertView {
-    var view: UIView { get }
-    init(frame: CGRect, icon: UIImage)
-    func append(view: UIView) -> Self
-    func appendText(text: NSAttributedString) -> Self
-    func addVerticalSeperator() -> Self
-    func addAction(title: String, action: @escaping ButtonAction) -> Self
-    func addPadding() -> Self
-    func trimBottomSpace() -> Self
-}
-
 extension UIView {
     func setCorners(radius: CGFloat = 10, borderColor: UIColor = UIColor.purple, borderWidth: CGFloat = 2) {
         layer.cornerRadius = radius

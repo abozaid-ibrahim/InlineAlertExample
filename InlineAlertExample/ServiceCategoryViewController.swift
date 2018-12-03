@@ -37,9 +37,15 @@ class VFServiceCategoryViewController: UIViewController {
             .addPadding()
             .trimBottomSpace()
         
+        let alert3 = InlineAlert(frame: CGRect(origin: CGPoint(x: 100, y: 40), size: CGSize(width: 400, height: 400)))
+            .appendText(text: NSAttributedString(string: "Hello this is the sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxto this is the sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafdaould a that shadsfafdaould appear here "))
+            .addVerticalSeperator()
+            .addAction(title: "Submit", action: {
+                print("action is")
+            })
         
         let pagerFrame = CGRect(origin: CGPoint(x: 0, y: 40), size: CGSize(width: 400, height: 400))
-        let alertPager = AlertPagerView(frame: pagerFrame, alerts: [alert, alert2,alert])
+        let alertPager = AlertPagerView(frame: pagerFrame, alerts: [alert, alert2,alert3])
 
         view.addSubview(alertPager)
     }
