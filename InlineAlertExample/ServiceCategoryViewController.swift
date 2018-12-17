@@ -24,7 +24,7 @@ class VFServiceCategoryViewController: UIViewController {
                 print("action share")
             })
             .addPadding()
-        alert.style.primaryBGColor = .red
+        alert.style.primaryBGColor = .yellow
 
         
         

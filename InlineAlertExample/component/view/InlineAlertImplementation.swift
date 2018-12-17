@@ -130,7 +130,7 @@ final class InlineAlert: UIView, InlineAlertView {
 final class Style {
     var seperatorColor = #colorLiteral(red: 0.8979414105, green: 0.8980956078, blue: 0.8979316354, alpha: 1)
     var buttonBG = UIColor.lightGray
-    var primaryBGColor = UIColor.red
+    var primaryBGColor = UIColor.darkGray
     var leadingViewWidth: CGFloat = 50
     var bodyPadding: CGFloat = 10
     var bodyBG = UIColor.white
