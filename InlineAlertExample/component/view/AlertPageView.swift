@@ -8,31 +8,30 @@
 
 import UIKit
 
-
 class AlertPagerView: UIView {
     private var alerts: [InlineAlertView]!
     func sizeChangedTo(newSize _: CGSize) {}
-    
+
     private var pageController: AlertPageViewController!
     private override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
+
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     convenience init(frame: CGRect, alerts: [InlineAlertView]) {
         self.init(frame: frame)
         self.alerts = alerts
-        
+
         setPresentationLogic()
     }
-    
+
     func replaceAlerts(newAlerts: [InlineAlertView]) {
         alerts.forEach { $0.view.removeFromSuperview() }
         pageController = nil
-        
+
         alerts = newAlerts
         setPresentationLogic()
     }
@@ -43,7 +42,7 @@ class AlertPagerView: UIView {
             addSubview(alert.view)
             alert.view.setSameBounds(self)
             alert.view.layoutIfNeeded()
-            
+
         } else {
             for index in 0 ..< alerts.count {
                 alerts[index].sizeDelegate = self

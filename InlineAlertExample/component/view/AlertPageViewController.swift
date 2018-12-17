@@ -16,7 +16,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
             pageControl.customPageControl(dotFillColor: UIColor.gray, dotBorderColor: UIColor.gray, dotBorderWidth: 1)
         }
     }
-    
+
     private var frame: CGRect
     private var alerts: [InlineAlertView]
     private var pageControl = CustomImagePageControl()
@@ -25,11 +25,11 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         self.alerts = alerts
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -41,11 +41,11 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         addChildViewController(pageViewController!)
         view.addSubview(pageViewController!.view)
         setViewConstrain(subView: pageViewController!.view)
-        
+
         pageViewController!.didMove(toParentViewController: self)
         addDots()
     }
-    
+
     func setViewConstrain(subView: UIView) {
         subView.translatesAutoresizingMaskIntoConstraints = false
         subView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -53,7 +53,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         subView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         subView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
     }
-    
+
     private func addDots() {
         pageControl.numberOfPages = alerts.count
         pageControl.currentPage = 1
@@ -63,7 +63,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         view.addSubview(pageControl)
         setDotsConstrains()
     }
-    
+
     private func setDotsConstrains() {
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -71,7 +71,7 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         pageControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
         pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    
+
     func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! SingleAlertPageController).pageIndex
         currentIndex = index
@@ -81,38 +81,38 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         index -= 1
         return viewControllerAtIndex(index: index)
     }
-    
+
     func pageViewController(_: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         var index = (viewController as! SingleAlertPageController).pageIndex
         currentIndex = index
         if index == NSNotFound {
             return nil
         }
-        
+
         index += 1
-        
+
         if index == alerts.count {
             return nil
         }
-        
+
         return viewControllerAtIndex(index: index)
     }
-    
+
     func presentationCountForPageViewController(pageViewController _: UIPageViewController) -> Int {
         return alerts.count
     }
-    
+
     func presentationIndexForPageViewController(pageViewController _: UIPageViewController) -> Int {
         return 0
     }
-    
+
     func viewControllerAtIndex(index: Int) -> SingleAlertPageController? {
         if alerts.count == 0 || index >= alerts.count {
             return nil
         }
         let pageContentViewController = SingleAlertPageController(pageIndex: index, alert: alerts[index])
         pageContentViewController.pageIndex = index
-        
+
         return pageContentViewController
     }
 }
@@ -126,7 +126,7 @@ class SingleAlertPageController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         view = alert.view
     }
-    
+
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -141,4 +141,3 @@ extension UIView {
         view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
-

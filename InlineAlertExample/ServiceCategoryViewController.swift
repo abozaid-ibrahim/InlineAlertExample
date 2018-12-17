@@ -24,7 +24,6 @@ class VFServiceCategoryViewController: UIViewController {
                 print("action share")
             })
             .addPadding()
-            .trimBottomSpace()
         alert.style.primaryBGColor = .red
 
         
@@ -37,7 +36,6 @@ class VFServiceCategoryViewController: UIViewController {
                 print("action print")
             })
             .addPadding()
-            .trimBottomSpace()
         
         let alert3 = InlineAlert(frame: CGRect(origin: .zero, size: defaultSize))
             .appendText(text: NSAttributedString(string: "Hello this is the sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxto this is the sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafd sum tesxt that shadsfafdaould a that shadsfafdaould appear here "))

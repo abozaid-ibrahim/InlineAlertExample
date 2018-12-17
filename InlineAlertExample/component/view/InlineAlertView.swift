@@ -16,8 +16,6 @@ protocol InlineAlertView {
     func addVerticalSeperator() -> Self
     func addAction(title: String, action: @escaping InlineAlertButtonAction) -> Self
     func addPadding() -> Self
-    func trimBottomSpace() -> Self
     var sizeDelegate: ViewSizeObserver? { get set }
     var viewContentHeight: CGFloat { get }
 }
-

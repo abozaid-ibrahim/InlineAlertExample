@@ -18,11 +18,11 @@ extension UIView {
 
 final class ClosureSleeve {
     let closure: () -> Void
-    
+
     init(_ closure: @escaping () -> Void) {
         self.closure = closure
     }
-    
+
     @objc func invoke() {
         closure()
     }
