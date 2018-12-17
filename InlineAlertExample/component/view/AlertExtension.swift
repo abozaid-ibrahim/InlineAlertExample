@@ -1,9 +1,9 @@
 //
 //  VFAlertExtension.swift
-//  MyVodafone
+//  InlineAlertExample
 //
-//  Created by Abuzeid Ibrahim on 11/29/18.
-//  Copyright © 2018 TSSE. All rights reserved.
+//  Created by Abuzeid Ibrahim on 12/3/18.
+//  Copyright © 2018 abuzeid. All rights reserved.
 //
 
 import UIKit
@@ -16,24 +16,22 @@ extension UIView {
     }
 }
 
-extension UIButton {
-    private func actionHandleBlock(action: (() -> Void)? = nil) {
-        struct __ {
-            static var action: (() -> Void)?
-        }
-        if action != nil {
-            __.action = action
-        } else {
-            __.action?()
-        }
+final class ClosureSleeve {
+    let closure: () -> Void
+    
+    init(_ closure: @escaping () -> Void) {
+        self.closure = closure
     }
-
-    @objc private func triggerActionHandleBlock() {
-        actionHandleBlock()
+    
+    @objc func invoke() {
+        closure()
     }
+}
 
-    func actionHandle(control: UIControlEvents, forAction: @escaping () -> Void) {
-        actionHandleBlock(action: forAction)
-        addTarget(self, action: #selector(UIButton.triggerActionHandleBlock), for: control)
+extension UIControl {
+    func addAction(for controlEvents: UIControlEvents, _ closure: @escaping () -> Void) {
+        let sleeve = ClosureSleeve(closure)
+        addTarget(sleeve, action: #selector(ClosureSleeve.invoke), for: controlEvents)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
 }

@@ -11,24 +11,28 @@ import UIKit
 class AlertPageViewController: UIViewController, UIPageViewControllerDataSource {
     private var pageViewController: UIPageViewController?
     private var currentIndex: Int = 0 {
-        didSet{
-            self.pageControl.currentPage = currentIndex
+        didSet {
+            pageControl.currentPage = currentIndex
+            pageControl.customPageControl(dotFillColor: UIColor.gray, dotBorderColor: UIColor.gray, dotBorderWidth: 1)
         }
     }
-    private var alerts: [InlineAlertView]!
-    private var pageControl  = UIPageControl()
-    init(alerts: [InlineAlertView]){
-        super.init(nibName: nil, bundle: nil)
+    
+    private var frame: CGRect
+    private var alerts: [InlineAlertView]
+    private var pageControl = CustomImagePageControl()
+    init(alerts: [InlineAlertView], frame: CGRect) {
+        self.frame = frame
         self.alerts = alerts
+        super.init(nibName: nil, bundle: nil)
     }
     
-    
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .clear
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         pageViewController!.dataSource = self
         let startingViewController: SingleAlertPageController = viewControllerAtIndex(index: currentIndex)!
@@ -36,22 +40,36 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: nil)
         addChildViewController(pageViewController!)
         view.addSubview(pageViewController!.view)
+        setViewConstrain(subView: pageViewController!.view)
+        
         pageViewController!.didMove(toParentViewController: self)
-        self.addDots()
+        addDots()
     }
-    private func addDots(){
-        self.pageControl.frame = CGRect(x: 0,y: 400,width: UIScreen.main.bounds.width,height: 50)
-        self.pageControl.numberOfPages = alerts.count
-        self.pageControl.currentPage = 1
-        self.pageControl.alpha = 1.0
-        self.pageControl.tintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.red
-        self.pageControl.currentPageIndicatorTintColor = UIColor.blue
+    
+    func setViewConstrain(subView: UIView) {
+        subView.translatesAutoresizingMaskIntoConstraints = false
+        subView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        subView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        subView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        subView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+    }
+    
+    private func addDots() {
+        pageControl.numberOfPages = alerts.count
+        pageControl.currentPage = 1
+        pageControl.alpha = 1.0
+        pageControl.backgroundColor = .clear
         pageControl.currentPage = currentIndex
-        self.view.addSubview(pageControl)
+        view.addSubview(pageControl)
+        setDotsConstrains()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    private func setDotsConstrains() {
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        pageControl.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     func pageViewController(_: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -92,33 +110,35 @@ class AlertPageViewController: UIViewController, UIPageViewControllerDataSource 
         if alerts.count == 0 || index >= alerts.count {
             return nil
         }
-        
-        // Create a new view controller and pass suitable data.
-        let pageContentViewController = SingleAlertPageController(pageIndex: index,alert: alerts[index])
-        
+        let pageContentViewController = SingleAlertPageController(pageIndex: index, alert: alerts[index])
         pageContentViewController.pageIndex = index
-        //        currentIndex = index
         
         return pageContentViewController
     }
-    
-    
 }
 
 class SingleAlertPageController: UIViewController {
-    var pageIndex: Int 
+    var pageIndex: Int
     private var alert: InlineAlertView
-    init(pageIndex:Int,alert: InlineAlertView) {
+    init(pageIndex: Int, alert: InlineAlertView) {
         self.alert = alert
         self.pageIndex = pageIndex
         super.init(nibName: nil, bundle: nil)
-        self.view = UIView(frame: alert.view.bounds)
-        view.addSubview(alert.view)
+        view = alert.view
     }
     
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }
+
+extension UIView {
+    func setSameBounds(_ view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        view.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        view.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+}
+

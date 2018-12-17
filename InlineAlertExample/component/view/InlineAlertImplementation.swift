@@ -12,6 +12,7 @@ struct InlineAlertAccessibilityIdentifiers {
 }
 
 final class InlineAlert: UIView, InlineAlertView {
+    var sizeDelegate: ViewSizeObserver?
     var view: UIView {
         return self
     }
@@ -32,11 +33,33 @@ final class InlineAlert: UIView, InlineAlertView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func observeValue(forKeyPath _: String?, of _: Any?, change: [NSKeyValueChangeKey: Any]?, context _: UnsafeMutableRawPointer?) {
+        guard let changeValue = change,
+            let frame = changeValue[NSKeyValueChangeKey.newKey] as? CGRect else {
+                return
+        }
+        sizeDelegate?.newSize(frame: frame)
+        view.frame = frame
+        layoutIfNeeded()
+    }
+    
+    deinit {
+        stackView.removeObserver(self, forKeyPath: "bounds")
+    }
+    
     private let stackView = UIStackView()
     
     func append(view: UIView) -> Self {
-        stackView.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: stackView.bounds.width - style.bodyPadding).isActive = true
+        
+        insertNewView(view)
         return self
+    }
+    
+    private func insertNewView(_ view: UIView) {
+        stackView.addArrangedSubview(view)
+        stackView.layoutIfNeeded()
     }
     
     func appendText(text: NSAttributedString) -> Self {
@@ -47,8 +70,21 @@ final class InlineAlert: UIView, InlineAlertView {
         label.lineBreakMode = .byWordWrapping
         label.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
         label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        insertNewView(label)
+        return self
+    }
+    
+    func appendText(text: String) -> Self {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         //        label.widthAnchor.constraint(equalToConstant: stackView.bounds.width - style.bodyPadding ).isActive = true
-        stackView.addArrangedSubview(label)
+        insertNewView(label)
+        
         return self
     }
     
@@ -64,7 +100,7 @@ final class InlineAlert: UIView, InlineAlertView {
         sep.widthAnchor.constraint(equalToConstant: stackView.bounds.width - style.bodyPadding).isActive = true
         sep.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        stackView.addArrangedSubview(sep)
+        insertNewView(sep)
         return self
     }
     
@@ -73,11 +109,15 @@ final class InlineAlert: UIView, InlineAlertView {
         padding.translatesAutoresizingMaskIntoConstraints = false
         padding.backgroundColor = UIColor.clear
         padding.heightAnchor.constraint(equalToConstant: style.bodyPadding).isActive = true
-        stackView.addArrangedSubview(padding)
+        insertNewView(padding)
         return self
     }
     
-    func addAction(title: String, action: @escaping ButtonAction) -> Self {
+    var viewContentHeight: CGFloat {
+        return stackView.frame.height + (2 * style.bodyPadding)
+    }
+    
+    func addAction(title: String, action: @escaping InlineAlertButtonAction) -> Self {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -85,21 +125,21 @@ final class InlineAlert: UIView, InlineAlertView {
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.setTitle(title, for: .normal)
         button.backgroundColor = style.buttonBG
-        button.actionHandle(control: .touchUpInside,
-                            forAction: { () -> Void in
-                                action()
-        })
         
-        stackView.addArrangedSubview(button)
+        button.addAction(for: .touchUpInside, { [weak self] in
+            guard self != nil else { return }
+            action()
+        })
+        insertNewView(button)
         return self
     }
 }
 
 final class Style {
-    var seperatorColor = UIColor.gray
-    var buttonBG = UIColor.gray
-    var primaryBGColor = UIColor.purple
-    var leadingViewWidth: CGFloat = 40
+    var seperatorColor = #colorLiteral(red: 0.8979414105, green: 0.8980956078, blue: 0.8979316354, alpha: 1)
+    var buttonBG = UIColor.lightGray
+    var primaryBGColor = UIColor.red
+    var leadingViewWidth: CGFloat = 50
     var bodyPadding: CGFloat = 10
     var bodyBG = UIColor.white
 }
@@ -108,8 +148,8 @@ private extension InlineAlert {
     func setLeadingView(icon: UIImage) {
         let leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: style.leadingViewWidth, height: bounds.height)))
         leftView.backgroundColor = style.primaryBGColor
-        let iconDim = style.leadingViewWidth - style.bodyPadding
-        let iconView = UIImageView(frame: CGRect(x: style.bodyPadding * 0.5, y: style.bodyPadding, width: iconDim, height: iconDim))
+        let iconDim = style.leadingViewWidth - (2 * style.bodyPadding)
+        let iconView = UIImageView(frame: CGRect(x: style.bodyPadding, y: 2 * style.bodyPadding, width: iconDim, height: iconDim))
         iconView.image = icon
         leftView.addSubview(iconView)
         addSubview(leftView)
@@ -128,13 +168,24 @@ private extension InlineAlert {
         let stackContainer = UIView(frame: stFrame)
         stackContainer.addSubview(stackView)
         stackContainer.backgroundColor = style.bodyBG
-        stackView.frame = stackContainer.bounds
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.leadingAnchor.constraint(equalTo: stackContainer.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: stackContainer.trailingAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: stackContainer.topAnchor).isActive = true
+        
         addSubview(stackContainer)
     }
     
     func initView(icon: UIImage) {
         setLeadingView(icon: icon)
         setBodyView()
-        setCorners(borderColor: style.primaryBGColor)
+        setCorners(borderColor: style.primaryBGColor, borderWidth: 1)
+        backgroundColor = style.bodyBG
+        stackView.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
     }
 }
+
+protocol ViewSizeObserver {
+    func newSize(frame: CGRect)
+}
+

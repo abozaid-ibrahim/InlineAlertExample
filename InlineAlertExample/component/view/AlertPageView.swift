@@ -8,12 +8,9 @@
 
 import UIKit
 
-protocol Sizable {
-    func sizeChangedTo(newSize: CGSize)
-}
 
-class AlertPagerView: UIView, Sizable {
-    var alerts: [InlineAlertView]!
+class AlertPagerView: UIView {
+    private var alerts: [InlineAlertView]!
     func sizeChangedTo(newSize _: CGSize) {}
     
     private var pageController: AlertPageViewController!
@@ -28,20 +25,45 @@ class AlertPagerView: UIView, Sizable {
     convenience init(frame: CGRect, alerts: [InlineAlertView]) {
         self.init(frame: frame)
         self.alerts = alerts
+        
         setPresentationLogic()
     }
     
+    func replaceAlerts(newAlerts: [InlineAlertView]) {
+        alerts.forEach { $0.view.removeFromSuperview() }
+        pageController = nil
+        
+        alerts = newAlerts
+        setPresentationLogic()
+    }
     private func setPresentationLogic() {
         if alerts.count <= 1 {
-            guard let alert = alerts.first else { return }
+            guard var alert = alerts.first else { return }
+            alert.sizeDelegate = self
             addSubview(alert.view)
-            alert.view.frame = bounds
+            alert.view.setSameBounds(self)
+            alert.view.layoutIfNeeded()
+            
         } else {
-            let _ = alerts.map{$0.view.frame = self.bounds }
-            pageController = AlertPageViewController(alerts: alerts)
-            pageController.view.frame = self.bounds
+            for index in 0 ..< alerts.count {
+                alerts[index].sizeDelegate = self
+            }
+            pageController = AlertPageViewController(alerts: alerts, frame: bounds)
             inputViewController?.addChildViewController(pageController)
             addSubview(pageController.view)
+            pageController.view.setSameBounds(self)
+            pageController.view.layoutIfNeeded()
         }
+    }
+}
+
+extension AlertPagerView: ViewSizeObserver {
+    func newSize(frame: CGRect) {
+        self.frame = frame
+        if pageController != nil {
+            //            pageController.view.frame = bounds
+            //            pageController.view.layoutIfNeeded()
+        }
+        layoutIfNeeded()
     }
 }
