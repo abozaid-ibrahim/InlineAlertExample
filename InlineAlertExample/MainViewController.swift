@@ -8,12 +8,14 @@
 
 import UIKit
 class VFServiceCategoryViewController: UIViewController {
+    @IBOutlet weak var alertsContainer: UIView!
+    @IBOutlet weak var alertsHeightConstrain: NSLayoutConstraint!
     var siteId: String!
+    var  alertPager:AlertPagerView?
     override func viewDidLoad() {
         super.viewDidLoad()
-       
         insertAlertView()
-
+        
     }
     func insertAlertView() {
         let defaultSize =  CGSize(width: view.bounds.width - 20, height: 320)
@@ -25,7 +27,7 @@ class VFServiceCategoryViewController: UIViewController {
             })
             .addPadding()
         alert.style.primaryBGColor = .yellow
-
+        
         
         
         
@@ -43,13 +45,44 @@ class VFServiceCategoryViewController: UIViewController {
             .addAction(title: "Skipp", action: {
                 print("action Skipp")
             })
-        let pagerFrame = CGRect(origin: CGPoint(x: 10, y: 40), size: defaultSize)
-        let alertPager = AlertPagerView(frame: pagerFrame, alerts: [alert, alert2,alert3])
-        view.addSubview(alertPager)
         
-//        alertPager.setSameFrame(view)
+        
+        
+        addAlertsIntoViewPager(alerts: [alert,alert2,alert3])
     }
-   
+  
+    func addAlertsIntoViewPager(alerts: [InlineAlert]) {
+        guard alerts.count > 0 else { return }
+        alerts.forEach { print($0.viewContentHeight) }
+        let maxAlertHeight = alerts.map { $0.viewContentHeight }.max() ?? 0
+        if alertPager == nil {
+            alertPager = AlertPagerView(frame: alertsContainer.bounds, alerts: alerts)
+            alertsContainer.addSubview(alertPager!)
+            guard let pager = alertPager,
+                let container = alertsContainer else {
+                    return
+            }
+            pager.setSameBounds(container)
+            
+            container.layoutIfNeeded()
+        } else {
+            alertPager?.replaceAlerts(newAlerts: alerts)
+        }
+        setAlertsContainerHeight(alerts, maxAlertHeight)
+
+    }
+ 
+    private func setAlertsContainerHeight(_ alerts: [InlineAlert], _ firstAlertHeight: CGFloat) {
+        alertsContainer.translatesAutoresizingMaskIntoConstraints = false
+        let dotsHeight: CGFloat = 50
+        alertsHeightConstrain.constant = alerts.count > 1 ? firstAlertHeight + dotsHeight : firstAlertHeight
+    }
+}
+extension VFServiceCategoryViewController: ViewSizeObserver {
+    func newSize(frame: CGRect) {
+//setAlertsContainerHeight(3, 230)
+        view.layoutIfNeeded()
+    }
 }
 
 extension AlertPagerView{
