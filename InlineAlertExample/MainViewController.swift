@@ -50,11 +50,11 @@ class VFServiceCategoryViewController: UIViewController {
         
         addAlertsIntoViewPager(alerts: [alert,alert2,alert3])
     }
-  
+    
     func addAlertsIntoViewPager(alerts: [InlineAlert]) {
         guard alerts.count > 0 else { return }
         alerts.forEach { print($0.viewContentHeight) }
-        let maxAlertHeight = alerts.map { $0.viewContentHeight }.max() ?? 0
+        let maxAlertHeight = alerts.first?.viewContentHeight ?? 0
         if alertPager == nil {
             alertPager = AlertPagerView(frame: alertsContainer.bounds, alerts: alerts)
             alertsContainer.addSubview(alertPager!)
@@ -65,33 +65,27 @@ class VFServiceCategoryViewController: UIViewController {
             pager.setSameBounds(container)
             
             container.layoutIfNeeded()
+            container.translatesAutoresizingMaskIntoConstraints = false
         } else {
             alertPager?.replaceAlerts(newAlerts: alerts)
         }
-        setAlertsContainerHeight(alerts, maxAlertHeight)
-
+        setAlertsContainerHeight(alerts.count, maxAlertHeight)
+        
     }
- 
-    private func setAlertsContainerHeight(_ alerts: [InlineAlert], _ firstAlertHeight: CGFloat) {
+    
+    private func setAlertsContainerHeight(_ alerts: Int, _ firstAlertHeight: CGFloat) {
         alertsContainer.translatesAutoresizingMaskIntoConstraints = false
         let dotsHeight: CGFloat = 50
-        alertsHeightConstrain.constant = alerts.count > 1 ? firstAlertHeight + dotsHeight : firstAlertHeight
+        alertsHeightConstrain.constant = alerts > 1 ? firstAlertHeight + dotsHeight : firstAlertHeight
     }
 }
 extension VFServiceCategoryViewController: ViewSizeObserver {
     func newSize(frame: CGRect) {
-//setAlertsContainerHeight(3, 230)
+        setAlertsContainerHeight(3, frame.height)
         view.layoutIfNeeded()
     }
 }
 
 extension AlertPagerView{
-    func setSameFrame(_ view: UIView) {
-        translatesAutoresizingMaskIntoConstraints = false
-        view.leadingAnchor.constraint(equalTo: leadingAnchor,constant:10).isActive = true
-        view.trailingAnchor.constraint(equalTo: trailingAnchor,constant:10).isActive = true
-        view.topAnchor.constraint(equalTo: topAnchor,constant:100).isActive = true
-        
-        view.heightAnchor.constraint(equalToConstant: 300).isActive = true
-    }
+    
 }

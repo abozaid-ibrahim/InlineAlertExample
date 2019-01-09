@@ -18,18 +18,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVK-vD-qku">
-                                <rect key="frame" x="0.0" y="20" width="375" height="400"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="8" y="80" width="359" height="555"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="Tl6-MX-CCZ"/>
+                                    <constraint firstAttribute="height" constant="555" id="Tl6-MX-CCZ"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="bVK-vD-qku" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4UA-Nf-G5q"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bVK-vD-qku" secondAttribute="trailing" id="J01-Zv-TTk"/>
-                            <constraint firstItem="bVK-vD-qku" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ltd-Lt-0ht"/>
+                            <constraint firstItem="bVK-vD-qku" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="4UA-Nf-G5q"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bVK-vD-qku" secondAttribute="trailing" constant="8" id="J01-Zv-TTk"/>
+                            <constraint firstItem="bVK-vD-qku" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="ltd-Lt-0ht"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

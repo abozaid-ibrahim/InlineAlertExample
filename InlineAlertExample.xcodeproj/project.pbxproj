@@ -20,6 +20,7 @@
 		6C5395A421E5F8980033EA39 /* InlineAlertImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53959D21E5F8980033EA39 /* InlineAlertImplementation.swift */; };
 		6C5395A521E5F8980033EA39 /* InlineAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53959E21E5F8980033EA39 /* InlineAlertView.swift */; };
 		6C5395A621E5F8980033EA39 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C53959F21E5F8980033EA39 /* CustomPageControl.swift */; };
+		6C5395A821E5FEE50033EA39 /* Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5395A721E5FEE50033EA39 /* Observers.swift */; };
 		6C6ED7A221B534AB00BEBDC6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6ED79921B534AB00BEBDC6 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		6C53959D21E5F8980033EA39 /* InlineAlertImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineAlertImplementation.swift; sourceTree = "<group>"; };
 		6C53959E21E5F8980033EA39 /* InlineAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineAlertView.swift; sourceTree = "<group>"; };
 		6C53959F21E5F8980033EA39 /* CustomPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
+		6C5395A721E5FEE50033EA39 /* Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observers.swift; sourceTree = "<group>"; };
 		6C6ED79921B534AB00BEBDC6 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 				6C53959D21E5F8980033EA39 /* InlineAlertImplementation.swift */,
 				6C53959E21E5F8980033EA39 /* InlineAlertView.swift */,
 				6C53959B21E5F8980033EA39 /* TextFieldWithUpperAlertView.swift */,
+				6C5395A721E5FEE50033EA39 /* Observers.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				6C5395A321E5F8980033EA39 /* AlertPageView.swift in Sources */,
 				6C6ED7A221B534AB00BEBDC6 /* MainViewController.swift in Sources */,
 				6C5395A021E5F8980033EA39 /* AlertExtension.swift in Sources */,
+				6C5395A821E5FEE50033EA39 /* Observers.swift in Sources */,
 				6C19B54B21AEAF2C00AD06A3 /* AppDelegate.swift in Sources */,
 				6C5395A621E5F8980033EA39 /* CustomPageControl.swift in Sources */,
 			);
